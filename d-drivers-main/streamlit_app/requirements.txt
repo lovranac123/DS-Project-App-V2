@@ -1,0 +1,15 @@
+tensorflow
+pycaret
+transformers
+Xgboost
+Streamlit
+streamlit_shadcn_ui
+pygwalker
+openpyxl
+nltk
+seaborn
+pytrends
+beautifulsoup4
+# torch # this breaks prediction in streamlit. either TensorFlow 2.0 or Torch is required. both seem to cause severe problems with no error message
+shap
+tf-keras
