@@ -32,16 +32,16 @@ mode = st.selectbox('Select exploration mode',
 
 if mode == 'Overview':
     data_path = 'https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/data/sl_app/eda_total.csv'
-    spec_path = "./pages/pyg_specs/summary.json"
+    spec_path = "https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/d-drivers-main/streamlit_app/pages/pyg_specs/summary.json"
 elif mode == 'Details':
     data_path = 'https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/data/sl_app/eda_scatters.csv'
-    spec_path = "./pages/pyg_specs/eda_features_sl.json"
+    spec_path = "https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/d-drivers-main/streamlit_app/pages/pyg_specs/eda_features_sl.json"
 elif mode == 'Page by page dynamics':
     data_path = 'https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/data/sl_app/dynamics.csv'
-    spec_path = "./pages/pyg_specs/history.json"
+    spec_path = "https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/d-drivers-main/streamlit_app/pages/pyg_specs/history.json"
 else:
     data_path = 'https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/data/data_nlp_A.csv'
-    spec_path = './pages/pyg_specs/empty.json'
+    spec_path = 'https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/d-drivers-main/streamlit_app/pages/pyg_specs/empty.json'
  
 renderer = get_pyg_renderer(data_path, spec_path)
 
