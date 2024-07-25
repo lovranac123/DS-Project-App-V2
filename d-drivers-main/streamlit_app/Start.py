@@ -20,8 +20,8 @@ This is a demo data exploration tool for D-Drivers. Meant for internal use."""
 # Load DataFrame
 # TODO: optimize data load for god's sake!
 
-df_static = pd.read_csv(r'/data/data_nlp_A.csv')
-df_dyn = pd.read_csv(r'C:\Data Science Project\data\sl_app\dynamics.csv')
+df_static = pd.read_csv('https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/data/data_nlp_A.csv')
+df_dyn = pd.read_csv('https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/data/sl_app/dynamics.csv')
 
 n_pages = df_static.page_id.unique().shape[0]
 
