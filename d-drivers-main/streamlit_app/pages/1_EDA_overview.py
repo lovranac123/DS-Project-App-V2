@@ -5,6 +5,9 @@ import streamlit as st
 
 from functions import plot_feature_distribution, plot_feature_influence
 
+import os
+import logging
+
 # Set page title and favicon
 st.set_page_config(
     page_title="Data Overview",
@@ -13,10 +16,31 @@ st.set_page_config(
 )
  
 # Load DataFrame
-df = pd.read_csv(r'C:\Data Science Project\data\preprocessing_nlp_v4.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/data/preprocessing_nlp_v4.csv')
 
 # Page title and image
-st.image("DATA-DRIVEN SEARCH FOR TRAFFIC DRIVERS.png", use_column_width=True)
+file_path = os.path.abspath("DATA-DRIVEN SEARCH FOR TRAFFIC DRIVERS.png")
+
+# Check if the file exists
+if os.path.exists(file_path):
+    try:
+        # Attempt to load the image
+        st.image(file_path, use_column_width=True)
+    except Exception as e:
+        logging.exception("An error occurred while loading the image.")
+        st.error(f"An error occurred: {str(e)}")
+else:
+    logging.error(f"Image file not found at path: {file_path}")
+    st.error(f"Image file not found at path: {file_path}")
+
+# Use Streamlit's file uploader for testing
+uploaded_file = st.file_uploader("Choose an image file")
+if uploaded_file is not None:
+    try:
+        st.image(uploaded_file, use_column_width=True)
+    except Exception as e:
+        logging.exception("An error occurred while loading the uploaded image.")
+        st.error(f"An error occurred with the uploaded file: {str(e)}")
 st.title("Composition of dataset")
 
 # Sidebar menu

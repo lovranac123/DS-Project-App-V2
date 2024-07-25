@@ -36,7 +36,7 @@ def load_sample_set(row_index, column_list):
     return dict
 
 def load_samples(i=0, n_rows=100):
-    df = pd.read_csv('C:/Data Science Project - Streamlit App/data/data_nlp_A.csv', parse_dates=['last_publish_date', 'date_min'], nrows=n_rows)
+    df = pd.read_csv('https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/data/data_nlp_A.csv', parse_dates=['last_publish_date', 'date_min'], nrows=n_rows)
 
     selected_columns = [
         'h1',
@@ -68,7 +68,32 @@ st.set_page_config(
     layout="wide",
 )
 
-st.image("DATA-DRIVEN SEARCH FOR TRAFFIC DRIVERS.png", use_column_width=True)
+
+# Page title and image
+file_path = os.path.abspath("DATA-DRIVEN SEARCH FOR TRAFFIC DRIVERS.png")
+
+# Check if the file exists
+if os.path.exists(file_path):
+    try:
+        # Attempt to load the image
+        st.image(file_path, use_column_width=True)
+    except Exception as e:
+        logging.exception("An error occurred while loading the image.")
+        st.error(f"An error occurred: {str(e)}")
+else:
+    logging.error(f"Image file not found at path: {file_path}")
+    st.error(f"Image file not found at path: {file_path}")
+
+# Use Streamlit's file uploader for testing
+uploaded_file = st.file_uploader("Choose an image file")
+if uploaded_file is not None:
+    try:
+        st.image(uploaded_file, use_column_width=True)
+    except Exception as e:
+        logging.exception("An error occurred while loading the uploaded image.")
+        st.error(f"An error occurred with the uploaded file: {str(e)}")
+
+        
 st.title("Prediciton of Article Impressions")
 
 # Initialize the text_input box with a default value if not already initialized

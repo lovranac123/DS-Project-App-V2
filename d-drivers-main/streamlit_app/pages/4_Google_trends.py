@@ -5,13 +5,40 @@ from pytrends.request import TrendReq
 
 from functions import request_interest_over_time, request_trends_individual
 
+import os
+import logging
+
 # Adjust the width of the Streamlit page
 st.set_page_config(
     page_title="Google trends",
     page_icon='📈',
     layout="wide"
 )
-st.image("DATA-DRIVEN SEARCH FOR TRAFFIC DRIVERS.png", use_column_width=True)
+
+# Page title and image
+file_path = os.path.abspath("DATA-DRIVEN SEARCH FOR TRAFFIC DRIVERS.png")
+
+# Check if the file exists
+if os.path.exists(file_path):
+    try:
+        # Attempt to load the image
+        st.image(file_path, use_column_width=True)
+    except Exception as e:
+        logging.exception("An error occurred while loading the image.")
+        st.error(f"An error occurred: {str(e)}")
+else:
+    logging.error(f"Image file not found at path: {file_path}")
+    st.error(f"Image file not found at path: {file_path}")
+
+# Use Streamlit's file uploader for testing
+uploaded_file = st.file_uploader("Choose an image file")
+if uploaded_file is not None:
+    try:
+        st.image(uploaded_file, use_column_width=True)
+    except Exception as e:
+        logging.exception("An error occurred while loading the uploaded image.")
+        st.error(f"An error occurred with the uploaded file: {str(e)}")
+
 st.title("Explore Google trends")
 st.header("Interest over time")
 st.info("""
