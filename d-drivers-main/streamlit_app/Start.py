@@ -26,7 +26,9 @@ df_dyn = pd.read_csv('https://raw.githubusercontent.com/lovranac123/DS-Project-A
 n_pages = df_static.page_id.unique().shape[0]
 
 # Page title and image
-st.image("DATA-DRIVEN SEARCH FOR TRAFFIC DRIVERS.png", use_column_width=True)
+#st.image("DATA-DRIVEN SEARCH FOR TRAFFIC DRIVERS.png", use_column_width=True)
+file_path = os.path.abspath("DATA-DRIVEN SEARCH FOR TRAFFIC DRIVERS.png")
+st.image(file_path, use_column_width=True)
 st.title("Content base overview")
 
 selected_metric = st.selectbox(
