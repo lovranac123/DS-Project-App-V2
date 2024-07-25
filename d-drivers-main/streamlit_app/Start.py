@@ -4,6 +4,8 @@ import streamlit_shadcn_ui as ui
 import pandas as pd
 from functions import *
 
+import os
+
 # Set page title and favicon
 st.set_page_config(
     page_title="Start - Data Overview",
