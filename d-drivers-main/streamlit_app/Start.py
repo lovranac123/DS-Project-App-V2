@@ -1,10 +1,12 @@
 import streamlit as st
 import streamlit_shadcn_ui as ui
-
 import pandas as pd
 from functions import *
-
 import os
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
 
 # Set page title and favicon
 st.set_page_config(
@@ -16,32 +18,51 @@ st.set_page_config(
          'About': """# D-Drivers data app 
 This is a demo data exploration tool for D-Drivers. Meant for internal use."""
         }
-        )
-
+)
 
 # Load DataFrame
 # TODO: optimize data load for god's sake!
-
 df_static = pd.read_csv('https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/data/data_nlp_A.csv')
 df_dyn = pd.read_csv('https://raw.githubusercontent.com/lovranac123/DS-Project-App-V2/master/data/sl_app/dynamics.csv')
 
 n_pages = df_static.page_id.unique().shape[0]
 
 # Page title and image
-#st.image("DATA-DRIVEN SEARCH FOR TRAFFIC DRIVERS.png", use_column_width=True)
 file_path = os.path.abspath("DATA-DRIVEN SEARCH FOR TRAFFIC DRIVERS.png")
-st.image(file_path, use_column_width=True)
+
+# Check if the file exists
+if os.path.exists(file_path):
+    try:
+        # Attempt to load the image
+        st.image(file_path, use_column_width=True)
+    except Exception as e:
+        logging.exception("An error occurred while loading the image.")
+        st.error(f"An error occurred: {str(e)}")
+else:
+    logging.error(f"Image file not found at path: {file_path}")
+    st.error(f"Image file not found at path: {file_path}")
+
+# Use Streamlit's file uploader for testing
+uploaded_file = st.file_uploader("Choose an image file")
+if uploaded_file is not None:
+    try:
+        st.image(uploaded_file, use_column_width=True)
+    except Exception as e:
+        logging.exception("An error occurred while loading the uploaded image.")
+        st.error(f"An error occurred with the uploaded file: {str(e)}")
+
 st.title("Content base overview")
 
 selected_metric = st.selectbox(
     'Select metric',
     ('Feed impressions', 'Click-through')
-    )
+)
 fig_bar = plot_metric_history(selected_metric, df_dyn)
 fig_bar.update_traces(showlegend=False)
 st.plotly_chart(
     fig_bar,
-       use_container_width=True)
+    use_container_width=True
+)
 
 cols = st.columns(3)
 
@@ -64,7 +85,6 @@ with cols2[0]:
     top_page = top_N_now(1, selected_metric, df_dyn)
     its_id = top_page.iloc[-1, 0]
     st.write(its_id)
-    #its_title = df_static.query('page_id == @its_id').iloc[0,:].title.strip()
     result = df_static.query('page_id == @its_id')
 
     if not result.empty:
